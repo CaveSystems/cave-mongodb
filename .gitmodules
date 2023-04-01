@@ -1,0 +1,6 @@
+[submodule "mongo-csharp-driver"]
+	path = mongo-csharp-driver
+	url = https://github.com/mongodb/mongo-csharp-driver.git
+[submodule "libmongocrypt"]
+	path = libmongocrypt
+	url = https://github.com/mongodb/libmongocrypt
