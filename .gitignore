@@ -1,0 +1,5 @@
+.vs/
+patchset/*/bin
+patchset/*/obj
+patchset/bin
+patchset/obj

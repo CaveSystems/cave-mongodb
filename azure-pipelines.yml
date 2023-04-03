@@ -1,0 +1,105 @@
+# .NET Cave Build Script
+# Set Major Build Version in variables
+# before merging next to master, branch to new release version vX
+
+# trigger: add any branches with releases to build AND change fixedBuildVersion variable!
+trigger:
+- master
+- refs/tags/v*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: 'patchset\cave-signed-mongo-csharp-driver.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  isTagged: false
+
+steps:
+
+- task: Bash@3
+  name: ShowEnvironment
+  displayName: Display all environment variables
+  inputs:
+    targetType: 'inline'
+    script: 'env | sort'
+
+- task: Bash@3
+  name: Submodules
+  displayName: Checkout all submodules
+  inputs:
+    targetType: 'inline'
+    script: 'git submodule update --init --recursive'
+    
+- task: PowerShell@2
+  name: SetGitVars
+  displayName: Set git variables
+  env:
+    BUILD_BUILDNUMBER: $(Build.BuildNumber)
+    BUILD_SOURCEBRANCHNAME: $(Build.SourceBranchName)
+  inputs:
+    targetType: inline
+    script: |
+      $gitTag = "$(git describe --tags --always)".Trim()
+      echo "branch = $env:BUILD_SOURCEBRANCHNAME"
+      echo "git tag = '$gitTag'"
+      if ($gitTag -match "^[vV].*")
+      {
+        $version = $gitTag.TrimStart('v', 'V')
+        Write-Host "##vso[task.setvariable variable=isTagged]true"
+      }
+      else
+      {
+        $fixedVersion = $(Get-Content mongo-csharp-driver\GitVersion.yml -First 1).Split(':', 2)[1].Trim()        
+        echo "fixed version = '$fixedVersion'"
+        $version = $fixedVersion + "-" + $env:BUILD_BUILDNUMBER
+        Write-Host "##vso[task.setvariable variable=isTagged]false"
+      }
+      echo "build version = '$version'"
+      Write-Host "##vso[task.setvariable variable=version]$version"
+
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: '>=6.4.0'
+
+- task: NuGetCommand@2
+  displayName: Restore nuget packages
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PowerShell@2
+  name: SetGitVars_Debug
+  displayName: Set git variables for debug build
+  env:
+    version: $(version)
+  inputs:
+    targetType: inline
+    script: |
+      $version = $env:version + "-debug"
+      echo "build version = '$version'"
+      Write-Host "##vso[task.setvariable variable=version]$version"
+
+- task: VSBuild@1
+  displayName: Build solution
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: 'debug'
+
+- task: NuGetCommand@2
+  displayName: Push to nuget
+# condition: eq(variables.isTagged, 'true')
+  inputs:
+    command: push
+    packagesToPush: '$(Build.SourcesDirectory)/patchset/**/bin/**/*.nupkg'
+    nuGetFeedType: external
+    publishFeedCredentials: 'nuget-default'
+    includeSymbols: true

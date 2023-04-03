@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyTitle>MongoDB.Driver.GridFS</AssemblyTitle>
+		<Product>MongoDB.Driver.GridFS</Product>
+		<Description>Signed version of the official MongoDB supported driver for MongoDB GridFS implementation. See https://www.mongodb.com/docs/drivers/csharp/ for more details.</Description>
+		<PackageDescription>Signed version of the GridFS Component of the Official MongoDB .NET Driver.</PackageDescription>
+		<PackageTags>$(PackageTags);gridfs</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bson\Cave.MongoDB.Bson.csproj" />
+		<ProjectReference Include="..\Driver\Cave.MongoDB.Driver.csproj" />
+		<ProjectReference Include="..\Driver.Core\Cave.MongoDB.Driver.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Driver.GridFS\**\*.cs" >
+			<Link>Source\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+		<Compile Include="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Shared\**\*.cs" >
+			<Link>Shared\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+		<Compile Remove="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Driver.GridFS\**\AssemblyInfo.cs" />
+	</ItemGroup>
+
+</Project>

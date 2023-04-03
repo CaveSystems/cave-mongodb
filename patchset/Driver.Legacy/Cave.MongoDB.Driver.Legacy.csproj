@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyTitle>MongoDB.Driver.Legacy</AssemblyTitle>
+		<Product>MongoDB.Driver.Legacy</Product>
+		<Description>Signed version of the Legacy MongoDB supported driver for MongoDB. See https://www.mongodb.com/docs/drivers/csharp/ for more details.</Description>
+		<PackageDescription>Signed version of the MongoDB legacy driver. The new driver's package name is MongoDB.Driver</PackageDescription>
+		<PackageTags></PackageTags>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<RootNamespace>MongoDB.Driver</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bson\Cave.MongoDB.Bson.csproj" />
+		<ProjectReference Include="..\Driver\Cave.MongoDB.Driver.csproj" />
+		<ProjectReference Include="..\Driver.Core\Cave.MongoDB.Driver.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Driver.Legacy\**\*.cs" >
+			<Link>Source\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+		<Compile Include="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Shared\**\*.cs" >
+			<Link>Shared\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+		<Compile Remove="$(SolutionDir)..\mongo-csharp-driver\src\MongoDB.Driver.Legacy\**\AssemblyInfo.cs" />
+	</ItemGroup>
+
+</Project>

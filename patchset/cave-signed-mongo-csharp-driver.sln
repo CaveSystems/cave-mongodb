@@ -1,0 +1,60 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Bson", "Bson\Cave.MongoDB.Bson.csproj", "{5859D14F-54FF-4F20-90CE-EE10CBF8DBFC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Libmongocrypt", "Libmongocrypt\Cave.MongoDB.Libmongocrypt.csproj", "{20BD18FF-8679-402E-855B-8491C414707F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Driver.Core", "Driver.Core\Cave.MongoDB.Driver.Core.csproj", "{021BDFF2-BAE8-4060-855D-938BA72510BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Driver", "Driver\Cave.MongoDB.Driver.csproj", "{F8502024-7595-4529-A50F-7981F89E2A95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Driver.GridFS", "Driver.GridFS\Cave.MongoDB.Driver.GridFS.csproj", "{D6192EFB-C9E6-4D50-B3EE-8272535A3C5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cave.MongoDB.Driver.Legacy", "Driver.Legacy\Cave.MongoDB.Driver.Legacy.csproj", "{9590927E-12A9-428D-A942-E432226ACEAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6CFC7329-BE21-4FAD-A3E6-5617EBDDEA44}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		mongo-csharp-driver.snk = mongo-csharp-driver.snk
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5859D14F-54FF-4F20-90CE-EE10CBF8DBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5859D14F-54FF-4F20-90CE-EE10CBF8DBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5859D14F-54FF-4F20-90CE-EE10CBF8DBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5859D14F-54FF-4F20-90CE-EE10CBF8DBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20BD18FF-8679-402E-855B-8491C414707F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20BD18FF-8679-402E-855B-8491C414707F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20BD18FF-8679-402E-855B-8491C414707F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20BD18FF-8679-402E-855B-8491C414707F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021BDFF2-BAE8-4060-855D-938BA72510BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021BDFF2-BAE8-4060-855D-938BA72510BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021BDFF2-BAE8-4060-855D-938BA72510BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021BDFF2-BAE8-4060-855D-938BA72510BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8502024-7595-4529-A50F-7981F89E2A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8502024-7595-4529-A50F-7981F89E2A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8502024-7595-4529-A50F-7981F89E2A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8502024-7595-4529-A50F-7981F89E2A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6192EFB-C9E6-4D50-B3EE-8272535A3C5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6192EFB-C9E6-4D50-B3EE-8272535A3C5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6192EFB-C9E6-4D50-B3EE-8272535A3C5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6192EFB-C9E6-4D50-B3EE-8272535A3C5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9590927E-12A9-428D-A942-E432226ACEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9590927E-12A9-428D-A942-E432226ACEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9590927E-12A9-428D-A942-E432226ACEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9590927E-12A9-428D-A942-E432226ACEAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24BEC44B-92B0-43AA-9B15-163459D0C098}
+	EndGlobalSection
+EndGlobal

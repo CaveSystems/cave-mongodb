@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyTitle>MongoDB.Libmongocrypt</AssemblyTitle>
+		<Product>MongoDB.Libmongocrypt</Product>
+		<Description>Signed version of the Libmongocrypt wrapper for the .NET driver.</Description>
+		<PackageDescription>Signed version of the Crypt Component of the Official MongoDB .NET Driver.</PackageDescription>
+		<PackageTags></PackageTags>
+		<RootNamespace>MongoDB.Driver</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
+		<IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
+		<IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="$(SolutionDir)..\libmongocrypt\bindings\cs\MongoDB.Libmongocrypt\**\*.cs">
+			<Link>Source\%(RecursiveDir)%(Filename)%(Extension)</Link>
+		</Compile>
+		<Compile Remove="$(SolutionDir)..\libmongocrypt\bindings\cs\MongoDB.Libmongocrypt\**\AssemblyInfo.cs" />
+	</ItemGroup>
+
+	<!--Compression-->
+	<PropertyGroup>
+		<CompressionWinRuntimesPath>runtimes/win/native</CompressionWinRuntimesPath>
+		<CompressionLinuxRuntimesPath>runtimes/linux/native</CompressionLinuxRuntimesPath>
+		<CompressionOsxRuntimesPath>runtimes/osx/native</CompressionOsxRuntimesPath>
+	</PropertyGroup>
+
+	<!--Snappy-->
+	<PropertyGroup>
+		<CryptWinBinaries>..\bin\libmongocrypt-v1.7.0\lib/win</CryptWinBinaries>
+		<CryptLinuxBinaries>..\bin\libmongocrypt-v1.7.0\lib\linux</CryptLinuxBinaries>
+		<CryptOsxBinaries>..\bin\libmongocrypt-v1.7.0\lib\osx</CryptOsxBinaries>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--Responsible for 'runtimes\$OS\native\%(FileName)%(Extension)' in package.nupkg-->
+		<!--win-->
+		<Content Include="$(CryptWinBinaries)/**/*.dll">
+			<!--x32/x64-->
+			<Pack>true</Pack>
+			<PackagePath>$(CompressionWinRuntimesPath)</PackagePath>
+		</Content>
+		<!--linux-->
+		<Content Include="$(CryptLinuxBinaries)/**/*.so">
+			<!--x32/x64-->
+			<Pack>true</Pack>
+			<PackagePath>$(CompressionLinuxRuntimesPath)</PackagePath>
+		</Content>
+		<!--osx-->
+		<Content Include="$(CryptOsxBinaries)/**/*.dylib">
+			<!--x32/x64-->
+			<Pack>true</Pack>
+			<PackagePath>$(CompressionOsxRuntimesPath)</PackagePath>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--Used to allow working with native libraries in our test projects-->
+		<!--Responsible for 'context and contentFiles' folders in package.nupkg-->
+		<!--win-->
+		<Content Include="$(CryptWinBinaries)/**/*.dll">
+			<!--x32/x64-->
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>%(FileName)%(Extension)</Link>
+		</Content>
+		<!--linux-->
+		<Content Include="$(CryptLinuxBinaries)/**/*.so">
+			<!--x32/x64-->
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>%(FileName)%(Extension)</Link>
+		</Content>
+		<!--osx-->
+		<Content Include="$(CryptOsxBinaries)/**/*.dylib">
+			<!--x32/x64-->
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>%(FileName)%(Extension)</Link>
+		</Content>
+	</ItemGroup>
+
+	<!--targets-->
+	<ItemGroup>
+		<!--Used for non-sdk projects-->
+		<!--Responsible for build/Libmongocrypt.targets-->
+		<Content Include="Cave.MongoDB.Libmongocrypt.targets">
+			<Pack>true</Pack>
+			<PackagePath>build/Cave.MongoDB.Libmongocrypt.targets</PackagePath>
+		</Content>
+	</ItemGroup>
+
+</Project>
